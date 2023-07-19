@@ -24,9 +24,9 @@ services:
       dockerfile: speedtest
     container_name: speedtest
     depends_on:
-      - speedtest-influxdb # The dependency on influxdb-arm service
+      - influxdb # The dependency on influxdb-arm service
     environment:
-      - INFLUXDB_URL=http://speedtest-influxdb:8086 # The environment variables for speedtest-influxdb configuration
+      - INFLUXDB_URL=http://influxdb:8086 # The environment variables for speedtest-influxdb configuration
       - INFLUXDB_DB=speedtest
       - INFLUXDB_USER=admin
       - INFLUXDB_PWD=admin54321
@@ -37,7 +37,7 @@ services:
       dockerfile: grafana
     container_name: grafana
     depends_on:
-      - speedtest-influxdb # The dependency on influxdb-arm service
+      - influxdb # The dependency on influxdb-arm service
     ports:
       - 3000:3000 # The port for grafana web interface
     volumes:
