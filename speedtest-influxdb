@@ -1,0 +1,14 @@
+# Use the official Python image
+FROM python:3.9
+
+# Install speedtest-cli
+RUN pip install speedtest-cli
+
+# Copy the script to the container
+COPY speedtest.py /speedtest.py
+
+# Run the script every 5 minutes using cron
+RUN echo "*/5 * * * * root python /speedtest.py" >> /etc/crontab
+
+# Start cron in the foreground
+CMD ["cron", "-f"]

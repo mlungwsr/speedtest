@@ -1,0 +1,8 @@
+# Use the official Grafana image
+FROM grafana/grafana:8.3.3
+
+# Copy the provisioning files to the container
+COPY provisioning /etc/grafana/provisioning
+
+# Copy the dashboard file to the container
+COPY dashboard.json /var/lib/grafana/dashboards/dashboard.json

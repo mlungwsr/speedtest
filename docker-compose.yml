@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  influxdb-arm:
+    build: ./influxdb-arm # The path to the Dockerfile for influxdb-arm
+    volumes:
+      - influxdb:/var/lib/influxdb2 # The volume for influxdb data
+    ports:
+      - 8086:8086 # The port for influxdb HTTP API
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup # The environment variables for influxdb configuration
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin54321
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=speedtest
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
+
+  speedtest-influxdb:
+    build: ./speedtest-influxdb # The path to the Dockerfile for speedtest-influxdb
+    depends_on:
+      - influxdb-arm # The dependency on influxdb-arm service
+    environment:
+      - INFLUXDB_URL=http://influxdb-arm:8086 # The environment variables for speedtest-influxdb configuration
+      - INFLUXDB_DB=speedtest
+      - INFLUXDB_USER=admin
+      - INFLUXDB_PWD=admin54321
+
+  grafana-influxdb:
+    build: ./grafana-influxdb # The path to the Dockerfile for grafana-influxdb
+    depends_on:
+      - influxdb-arm # The dependency on influxdb-arm service
+    ports:
+      - 3000:3000 # The port for grafana web interface
+    volumes:
+      - grafana:/var/lib/grafana # The volume for grafana data
+
+volumes:
+  influxdb: # The named volume for influxdb data
+  grafana: # The named volume for grafana data
