@@ -16,7 +16,7 @@ COPY speedtest-to-influxdb.sh /speedtest-to-influxdb.sh
 RUN chmod +x /speedtest-to-influxdb.sh
 
 # Install cron
-RUN apt-get install cron
+RUN apt-get install -y cron
 
 # Run the script every 5 minutes using cron
 RUN echo "*/5 * * * * /speedtest-to-influxdb.sh" | crontab -
