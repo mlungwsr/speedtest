@@ -2,7 +2,10 @@ version: '3'
 
 services:
   influxdb-arm:
-    build: ./influxdb-arm # The path to the Dockerfile for influxdb-arm
+    build:
+      context: . # The path to the Dockerfile for influxdb-arm
+      dockerfile: influxdb-arm
+    container_name: influxdb_container
     volumes:
       - influxdb:/var/lib/influxdb2 # The volume for influxdb data
     ports:
@@ -16,7 +19,10 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
 
   speedtest-influxdb:
-    build: ./speedtest-influxdb # The path to the Dockerfile for speedtest-influxdb
+    build:
+      context: . # The path to the Dockerfile for speedtest-influxdb
+      dockerfile: speedtest-influxdb
+    container_name: speedtest_container
     depends_on:
       - influxdb-arm # The dependency on influxdb-arm service
     environment:
@@ -26,7 +32,10 @@ services:
       - INFLUXDB_PWD=admin54321
 
   grafana-influxdb:
-    build: ./grafana-influxdb # The path to the Dockerfile for grafana-influxdb
+    build:
+      context: . # The path to the Dockerfile for grafana-influxdb
+      dockerfile: grafana-influxdb
+    container_name: grafana_container
     depends_on:
       - influxdb-arm # The dependency on influxdb-arm service
     ports:
