@@ -1,6 +1,5 @@
 {
   "annotations": {
-    // The annotations for the dashboard
   },
   "editable": false,
   "gnetId": null,
@@ -8,19 +7,15 @@
   "id": null,
   "links": [],
   "panels": [
-    // The panels for the dashboard
   ],
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
-    // The template variables for the dashboard
   },
   "time": {
-    // The time range for the dashboard
   },
   "timepicker": {
-    // The time picker options for the dashboard
   },
   "timezone": "",
   "title": "Speedtest Dashboard",

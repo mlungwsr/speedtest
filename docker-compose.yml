@@ -5,7 +5,6 @@ services:
     build:
       context: . # The path to the Dockerfile for influxdb-arm
       dockerfile: influxdb-arm
-    container_name: influxdb_container
     volumes:
       - influxdb:/var/lib/influxdb2 # The volume for influxdb data
     ports:
@@ -22,7 +21,6 @@ services:
     build:
       context: . # The path to the Dockerfile for speedtest-influxdb
       dockerfile: speedtest-influxdb
-    container_name: speedtest_container
     depends_on:
       - influxdb-arm # The dependency on influxdb-arm service
     environment:
@@ -35,7 +33,6 @@ services:
     build:
       context: . # The path to the Dockerfile for grafana-influxdb
       dockerfile: grafana-influxdb
-    container_name: grafana_container
     depends_on:
       - influxdb-arm # The dependency on influxdb-arm service
     ports:
